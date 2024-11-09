@@ -1,0 +1,10 @@
+﻿Prompt the player for their name before going into the main menu
+Create a new player object with the player name
+Present the main menu with option to quit or play the game (While Loop)
+When starting the game, the game system must pick a random word for the player to guess
+Once the random word is picked out, prompt the player to write a five letter word (check for the length)
+Once the player input a valid response, compare the player answer to the word the game picked out.
+Display which letter was currently in order or which wasn't or display if the player correctly guess the word
+Keep track on how many attempt the player has (6 attempt for the entire game)
+Display rather the player win or lose the game and prompt if they want to replay the game
+Replay by calling back on playgame method (recursive) back to step 4
