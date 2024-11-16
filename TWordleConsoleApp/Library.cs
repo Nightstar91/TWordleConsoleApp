@@ -22,6 +22,20 @@ namespace TWordleConsoleApp
         }
 
 
+        public static void WriteCharacter(string character)
+        {
+            Console.Write(character);
+        }
+
+
+        public static void WriteCharacter(string character, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(character);
+            Console.ResetColor();
+        }
+
+
         public static void Pause()
         {
             Console.WriteLine("Press the ENTER key to continue...");

@@ -77,7 +77,7 @@ namespace TWordleConsoleApp
                     case "1":
                         //Play game and bring the player object into the game class
                         wordleGame = new Wordle(playerName);
-                        wordleGame.Test();
+                        wordleGame.StartGame();
                         break;
 
                     case "2":
