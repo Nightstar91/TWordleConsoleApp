@@ -18,6 +18,7 @@ namespace TWordleConsoleApp
 
         private string userInput;
 
+        private int indexForHint;
         private char[] gameWordArray;
         private char[] playerWordArray;
 
@@ -71,9 +72,16 @@ namespace TWordleConsoleApp
                 // For formatting
                 ClearConsole();
 
+                // Giving player hint for round 2 and round 4
+                if (player.attempt == 4 || player.attempt == 2)
+                {
+                    WriteMessage(GiveHint(gameWordArray), ConsoleColor.Yellow);
+                }
+
                 // Prompting the user for an answer
                 WriteMessage("Guess the mysterious FIVE letter word\n", ConsoleColor.Yellow);
                 userInput = Console.ReadLine();
+
 
                 // Check to see if the user inputted a five letter answer
                 if(userInput.Length == 5)
@@ -96,7 +104,7 @@ namespace TWordleConsoleApp
                 else
                 {
                     // Prompting the user for an invalid response and instructing them on what is valid
-                    WriteMessage($"{word.mysteryWord} You have inputted a word that IS NOT FIVE LETTER LONG\nPlease input a five letter word this time!\n", ConsoleColor.Red);
+                    WriteMessage($"You have inputted a word that IS NOT FIVE LETTER LONG\nPlease input a five letter word this time!\n", ConsoleColor.Red);
                     Pause();
 
                     // Keeping the boolean false until the user input a valid response
@@ -120,7 +128,9 @@ namespace TWordleConsoleApp
             else
             {
                 // Displaying that the user has answered incorrectly 
-                WriteMessage($"INCORRECT! it was not {userInput}!\nYou still have {player.attempt - 1} attempt left!\n");
+                WriteMessage($"INCORRECT! it was not {userInput}!\nYou still have {player.attempt - 1} attempt left!\n\n");
+
+                AnalyzeWordToWord(playerWordArray, gameWordArray);
 
                 // Display which character was correctly in position 
                 Pause();
@@ -132,7 +142,7 @@ namespace TWordleConsoleApp
         public bool CompareWord(Word hiddenWord, string playerWord)
         {
             // Normalizing the data so it can go through the comparison test
-            if (word.mysteryWord.ToLower() == playerWord.ToLower())
+            if (hiddenWord.mysteryWord.ToLower() == playerWord.ToLower())
             {
                 // Player correctly guess the word
                 return true;
@@ -147,26 +157,39 @@ namespace TWordleConsoleApp
 
         public void AnalyzeWordToWord(char[] playerWord, char[] gameWord)
         {
-            // Scanning through the entire array to analyze
-            for(int i = 0; i < playerWord  .Length; i++)
+
+            // Scanning through the player array to analyze
+            for(int i = 0; i < playerWord.Length; i++)
             {
                 // Checking to see if the letter in the same index are completely identical (appear green)
                 if (gameWord[i] == playerWord[i])
                 {
                     WriteCharacter($"[{playerWord[i]}] ", ConsoleColor.Green);
                 }
-                
+                // Otherwise the letter is not in the correct position (appear red)
+                else
+                {
+                    WriteCharacter($"[{playerWord[i]}] ", ConsoleColor.Red);
+                }
+
             }
+        }
+
+        public string GiveHint(char[] word)
+        {
+            indexForHint = Word.GetSomeRandomNumber(0, 4);
+
+            return $"[HINT] The word contain the letter [{word[indexForHint]}]\n\n";
         }
 
 
         public string DisplayEndScreen(bool didPlayerWin)
         {
             if (didPlayerWin)
-                return "YOU WON";
+                return $"Congratulation {player.name}, YOU WON";
 
             else
-                return "YOU LOSE";
+                return $"YOU LOSE, the word was {word.mysteryWord}. Better luck next time {player.name}";
 
         }
     }

@@ -81,7 +81,7 @@ namespace TWordleConsoleApp
                         break;
 
                     case "2":
-                        WriteMessage("The goal is to guess a five letter word with only 6 attempt.\nEach time you correctly guess a letter in its position, the letter will be appear green.\nIf you correctly guess a letter that is in the word but in the wrong position, the letter will appear yellow.");
+                        WriteMessage("The goal is to guess a five letter word with only 6 attempt.\nEach time you correctly guess a letter in its position, the letter will be appear green.\nOtherwise it will appear red if it was in the wrong position.\nYou will be given two hint for the entire game\n");
                         Pause();
                         break;
 
